@@ -1,61 +1,198 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🌍 Sensing Nature - Geological & Geophysical Solutions
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, bilingual (English/Arabic) web application built with Laravel and Filament, providing innovative geological and geophysical solutions.
 
-## About Laravel
+## 🚀 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **🌐 Bilingual Support**: Full English and Arabic localization
+- **📱 Responsive Design**: Mobile-first approach with modern UI/UX
+- **🔧 Admin Panel**: Powerful Filament-based administration interface
+- **📁 File Management**: Organized file uploads with proper directory structure
+- **💬 WhatsApp Integration**: Direct contact through WhatsApp
+- **📊 Portfolio Management**: Showcase geological projects and services
+- **👥 Team Management**: Team member profiles and information
+- **📧 Contact System**: Integrated contact forms and messaging
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Technology Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Backend**: Laravel 12.x
+- **Admin Panel**: Filament 3.x
+- **Frontend**: Blade templates with Tailwind CSS
+- **Database**: SQLite (development) / MySQL (production)
+- **Localization**: Laravel Localization + Spatie Translatable
+- **Build Tool**: Vite with Tailwind CSS
 
-## Learning Laravel
+## 📋 Requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP 8.2+
+- Composer
+- Node.js & NPM
+- SQLite/MySQL
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🚀 Installation
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Diab999/Sensing-Nature.git
+   cd Sensing-Nature
+   ```
 
-## Laravel Sponsors
+2. **Install PHP dependencies**
+   ```bash
+   composer install
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3. **Install Node.js dependencies**
+   ```bash
+   npm install
+   ```
 
-### Premium Partners
+4. **Environment setup**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+5. **Database setup**
+   ```bash
+   php artisan migrate
+   php artisan db:seed
+   ```
 
-## Contributing
+6. **Build assets**
+   ```bash
+   npm run build
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7. **Create storage link**
+   ```bash
+   php artisan storage:link
+   ```
 
-## Code of Conduct
+8. **Start development server**
+   ```bash
+   php artisan serve
+   npm run dev
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🔧 Configuration
 
-## Security Vulnerabilities
+### Environment Variables
+```env
+APP_NAME="Sensing Nature"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost:8000
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
 
-## License
+WHATSAPP_PHONE=+1234567890
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Admin Access
+- **URL**: `/admin`
+- **Default Email**: `admin@example.com`
+- **Default Password**: `admin123`
+
+## 📁 Project Structure
+
+```
+├── app/
+│   ├── Filament/Resources/     # Admin panel resources
+│   ├── Http/Controllers/       # Web controllers
+│   ├── Models/                 # Eloquent models
+│   └── Providers/              # Service providers
+├── resources/
+│   ├── views/                  # Blade templates
+│   ├── lang/                   # Language files
+│   └── css/                    # Tailwind CSS
+├── storage/
+│   └── app/public/             # File uploads
+│       ├── portfolio/          # Portfolio images
+│       ├── projects/images/    # Project images
+│       ├── team-members/images/ # Team member images
+│       └── services/icons/     # Service icons
+└── routes/
+    └── web.php                 # Web routes
+```
+
+## 🌍 Localization
+
+The application supports both English and Arabic:
+
+- **English Routes**: `/en/*`
+- **Arabic Routes**: `/ar/*`
+- **Language Switching**: Available on all pages
+- **RTL Support**: Full Arabic RTL layout support
+
+## 📱 WhatsApp Integration
+
+- **Floating Button**: Always visible WhatsApp contact button
+- **Direct Messaging**: One-click access to WhatsApp chat
+- **Phone Configuration**: Configurable via environment variables
+
+## 🔒 Security Features
+
+- **Admin Access Control**: Middleware-based admin protection
+- **File Upload Security**: Secure file handling and validation
+- **CSRF Protection**: Built-in Laravel security features
+- **Input Validation**: Comprehensive form validation
+
+## 🚀 Deployment
+
+### Production Checklist
+- [x] Code debugged and optimized
+- [x] File uploads properly organized
+- [x] Unused code removed
+- [x] Performance optimizations applied
+- [x] Security configurations set
+
+### Deployment Commands
+```bash
+composer install --optimize-autoloader --no-dev
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan storage:link
+php artisan migrate --force
+```
+
+## 📊 Admin Panel Features
+
+- **Portfolio Management**: Add/edit portfolio items
+- **Project Management**: Manage geological projects
+- **Service Management**: Configure services and icons
+- **Team Management**: Team member profiles
+- **Contact Management**: Handle contact messages
+- **Settings Management**: Application configuration
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## 📞 Support
+
+- **Email**: ma4482604@gmail.com
+- **GitHub**: [@Diab999](https://github.com/Diab999)
+- **WhatsApp**: Available through the website
+
+## 🎯 Roadmap
+
+- [ ] API endpoints for mobile apps
+- [ ] Advanced analytics dashboard
+- [ ] Multi-language content management
+- [ ] Advanced file management system
+- [ ] Performance monitoring integration
+
+---
+
+**Built with ❤️ using Laravel & Filament**
