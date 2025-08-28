@@ -69,7 +69,9 @@ class TeamMemberResource extends Resource
                         FileUpload::make('image')
                             ->disk('public')
                             ->image()
-                            ->maxSize(2048),
+                            ->maxSize(2048)
+                            ->directory('team-members/images')
+                            ->visibility('public'),
                     ]),
             ]);
     }

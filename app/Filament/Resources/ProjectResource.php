@@ -70,7 +70,9 @@ class ProjectResource extends Resource
                         FileUpload::make('image')
                             ->disk('public')
                             ->image()
-                            ->maxSize(2048),
+                            ->maxSize(2048)
+                            ->directory('projects/images')
+                            ->visibility('public'),
                         DatePicker::make('project_date')
                             ->label('Project Date'),
                         Forms\Components\Toggle::make('is_featured')
