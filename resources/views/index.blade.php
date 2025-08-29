@@ -97,7 +97,7 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <!-- Mission -->
-                    <div class="col-lg-6 mb-5">
+                    <div class="col-lg-6 col-md-12 mb-5">
                         <div class="card h-100 shadow border-0" style="border-radius: 1.25rem; overflow: hidden;">
                             <!-- Mission Tab -->
                             <div class="card-header text-white text-center py-3" style="background: linear-gradient(135deg, #f4623a 0%, #e55a35 100%); border: none;">
@@ -106,7 +106,7 @@
                             <!-- Mission Content -->
                             <div class="card-body p-4 d-flex align-items-center" style="min-height: 140px;">
                                 <div class="row align-items-center w-100">
-                                    <div class="col-auto">
+                                    <div class="col-auto d-none d-md-block">
                                         <div class="mission-icon-wrapper text-center me-3">
                                             <i class="bi bi-bullseye text-primary" style="font-size: 3.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>
                                         </div>
@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                                 <!-- Decorative Flag -->
-                                <div class="position-absolute" style="top: 10px; right: 15px;">
+                                <div class="position-absolute d-none d-md-block" style="top: 10px; right: 15px;">
                                     <i class="bi bi-flag-fill text-white" style="font-size: 1.2rem; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));"></i>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                     </div>
                     
                     <!-- Vision -->
-                    <div class="col-lg-6 mb-5">
+                    <div class="col-lg-6 col-md-12 mb-5">
                         <div class="card h-100 shadow border-0" style="border-radius: 1.25rem; overflow: hidden;">
                             <!-- Vision Tab -->
                             <div class="card-header text-white text-center py-3" style="background: linear-gradient(135deg, #f4623a 0%, #d14a2e 100%); border: none;">
@@ -135,7 +135,7 @@
                             <!-- Vision Content -->
                             <div class="card-body p-4 d-flex align-items-center" style="min-height: 140px;">
                                 <div class="row align-items-center w-100">
-                                    <div class="col-auto">
+                                    <div class="col-auto d-none d-md-block">
                                         <div class="vision-icon-wrapper text-center me-3">
                                             <i class="bi bi-lightbulb-fill text-primary" style="font-size: 3.5rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"></i>
                                         </div>
@@ -147,7 +147,7 @@
                                     </div>
                                 </div>
                                 <!-- Decorative Flag -->
-                                <div class="position-absolute" style="top: 10px; right: 15px;">
+                                <div class="position-absolute d-none d-md-block" style="top: 10px; right: 15px;">
                                     <i class="bi bi-flag-fill text-white" style="font-size: 1.2rem; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));"></i>
                                 </div>
                             </div>
@@ -167,7 +167,7 @@
                     <p class="text-muted mb-5">{{ __('messages.we_got_what_you_need') }}</p>
                 </div>
                 
-                <div class="row justify-content-center g-4" lang="{{ app()->getLocale() }}">
+                <div class="row justify-content-center g-4 gy-4" lang="{{ app()->getLocale() }}">
                     @foreach($services as $service)
                         <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
                             <div class="service-card" lang="{{ app()->getLocale() }}">
@@ -1172,6 +1172,39 @@
             flex-direction: row-reverse;
         }
         
+        /* Mission & Vision Cards - Responsive Design */
+        @media (max-width: 767.98px) {
+            .mission-icon-wrapper,
+            .vision-icon-wrapper {
+                display: none !important;
+            }
+            
+            .card-body .row .col {
+                padding-left: 0;
+                padding-right: 0;
+                flex: 1;
+                min-width: 0;
+            }
+            
+            .card-body .row .col-auto {
+                display: none !important;
+            }
+            
+            .card-body .row {
+                margin-left: 0;
+                margin-right: 0;
+            }
+            
+            .card-body {
+                padding: 1.5rem !important;
+            }
+            
+            .card-text {
+                font-size: 1rem !important;
+                line-height: 1.6 !important;
+            }
+        }
+
         /* Service Card Styling */
         .service-card {
             width: 100%;
@@ -1187,22 +1220,7 @@
             text-align: center;
             cursor: pointer;
             animation: cardFadeIn 0.6s ease-out;
-        }
-
-        .service-card {
-            width: 100%;
-            background-color: #f8f8f8;
-            border-radius: 10px;
-            padding: 3.25rem 2rem 2rem 2rem; /* extra top padding for overlapping badge */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
-            border: none;
-            position: relative;
-            overflow: visible; /* allow badge to overflow */
-            height: 100%;
-            text-align: center;
-            cursor: pointer;
-            animation: cardFadeIn 0.6s ease-out;
+            margin-bottom: 2rem; /* Add bottom margin for better spacing */
         }
 
         @keyframes cardFadeIn {
@@ -1248,6 +1266,38 @@
         [lang="ar"] .service-card p {
             text-align: right;
             direction: rtl;
+        }
+
+        /* Service Cards - Responsive Improvements */
+        @media (max-width: 767.98px) {
+            .service-card {
+                margin-bottom: 1.5rem;
+                padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+            }
+            
+            .service-icon-container {
+                width: 70px;
+                height: 70px;
+                top: -35px;
+            }
+            
+            .service-icon {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .service-icon-placeholder {
+                width: 48px;
+                height: 48px;
+            }
+            
+            .service-name {
+                font-size: 1.3rem;
+            }
+            
+            .service-short-description {
+                font-size: 0.95rem;
+            }
         }
 
         /* Service Icon Styling */
