@@ -169,7 +169,7 @@
                 
                 <div class="row justify-content-center g-4 gy-4" lang="{{ app()->getLocale() }}">
                     @foreach($services as $service)
-                        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+                        <div class="col-lg-3 col-md-6 col-sm-12 d-flex align-items-stretch mb-4">
                             <div class="service-card" lang="{{ app()->getLocale() }}">
                                 <div class="service-icon-container">
                                 @if($service->icon)
@@ -1222,6 +1222,11 @@
             animation: cardFadeIn 0.6s ease-out;
             margin-bottom: 2rem; /* Add bottom margin for better spacing */
         }
+        
+        /* Ensure proper spacing between service cards */
+        .service-card + .service-card {
+            margin-top: 2rem;
+        }
 
         @keyframes cardFadeIn {
             from {
@@ -1271,8 +1276,9 @@
         /* Service Cards - Responsive Improvements */
         @media (max-width: 767.98px) {
             .service-card {
-                margin-bottom: 1.5rem;
-                padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+                margin-bottom: 2rem !important;
+                padding: 3rem 1.5rem 1.5rem 1.5rem !important;
+                position: relative;
             }
             
             .service-icon-container {
@@ -1293,10 +1299,32 @@
             
             .service-name {
                 font-size: 1.3rem;
+                margin-top: 1rem !important;
+                padding-top: 0.5rem;
             }
             
             .service-short-description {
                 font-size: 0.95rem;
+                margin-top: 0.5rem;
+            }
+            
+            /* Ensure proper spacing between cards */
+            .col-lg-3.col-md-6.col-sm-12 {
+                margin-bottom: 2rem !important;
+            }
+            
+            /* Fix icon overlap with title */
+            .service-info {
+                padding-top: 1rem;
+            }
+            
+            /* Better spacing for service section */
+            #services .row {
+                margin-bottom: 2rem;
+            }
+            
+            #services .col-sm-12 {
+                margin-bottom: 2rem !important;
             }
         }
 
@@ -1357,6 +1385,7 @@
 
         .service-info {
             text-align: center;
+            padding-top: 1rem; /* Add padding to prevent overlap with icon */
         }
 
         .service-name {
