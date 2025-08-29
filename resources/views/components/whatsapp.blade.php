@@ -16,19 +16,7 @@
             </button>
         </a>
         
-        <!-- Alternative Contact Methods (Hidden by default, shown on hover) -->
-        <div class="contact-alternatives">
-            <div class="contact-option">
-                <a href="tel:{{ $whatsappPhone }}" class="contact-link phone-link" title="Call us">
-                    <i class="bi bi-telephone-fill"></i>
-                </a>
-            </div>
-            <div class="contact-option">
-                <a href="mailto:info@sensingnature.com" class="contact-link email-link" title="Email us">
-                    <i class="bi bi-envelope-fill"></i>
-                </a>
-            </div>
-        </div>
+
     </div>
 </div>
 
@@ -108,63 +96,7 @@
     padding: 0 15px;
 }
 
-/* Contact Alternatives */
-.contact-alternatives {
-    position: absolute;
-    bottom: 70px;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: all 0.3s ease;
-    pointer-events: none;
-}
 
-.wh-fixed:hover .contact-alternatives {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
-.contact-option {
-    display: flex;
-    justify-content: center;
-}
-
-.contact-link {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    font-size: 18px;
-}
-
-.phone-link {
-    background-color: #007bff;
-}
-
-.phone-link:hover {
-    background-color: #0056b3;
-    transform: scale(1.1);
-    color: white;
-}
-
-.email-link {
-    background-color: #dc3545;
-}
-
-.email-link:hover {
-    background-color: #c82333;
-    transform: scale(1.1);
-    color: white;
-}
 
 .whatsapp-pulse {
     position: relative;
@@ -189,10 +121,7 @@
     left: 70px;
 }
 
-[dir="rtl"] .contact-alternatives {
-    right: auto;
-    left: 0;
-}
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -206,15 +135,7 @@
         height: 55px;
     }
     
-    .contact-alternatives {
-        bottom: 65px;
-    }
-    
-    .contact-link {
-        width: 40px;
-        height: 40px;
-        font-size: 16px;
-    }
+
 }
 </style>
 
