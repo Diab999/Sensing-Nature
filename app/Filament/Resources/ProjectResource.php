@@ -70,6 +70,11 @@ class ProjectResource extends Resource
                         FileUpload::make('image')
                             ->disk('public')
                             ->image()
+                            ->previewable()
+                            ->openable()
+                            ->downloadable()
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('16:9')
                             ->maxSize(2048)
                             ->directory('projects/images')
                             ->visibility('public'),

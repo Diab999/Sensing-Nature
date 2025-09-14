@@ -34,6 +34,7 @@ echo -e "${GREEN}📋 Copying project files...${NC}"
 rsync -av --exclude='.git' \
     --exclude='node_modules' \
     --exclude='vendor' \
+    --exclude='vendor.zip' \
     --exclude='storage/logs/*' \
     --exclude='storage/framework/cache/*' \
     --exclude='storage/framework/sessions/*' \

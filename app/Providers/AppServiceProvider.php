@@ -20,6 +20,30 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Set locale from URL segment, but respect session if it was recently set
+        $locale = request()->segment(1);
+        $sessionLocale = session('locale');
+        $flashLocale = session('current_locale'); // Check for flash session data
+        $cookieLocale = request()->cookie('locale'); // Check for cookie
+        
+        // Priority: Flash session > Cookie > Session > URL segment > Default
+        if ($flashLocale && in_array($flashLocale, ['en', 'ar'])) {
+            app()->setLocale($flashLocale);
+            session(['locale' => $flashLocale]); // Persist flash to session
+        } elseif ($cookieLocale && in_array($cookieLocale, ['en', 'ar'])) {
+            app()->setLocale($cookieLocale);
+            session(['locale' => $cookieLocale]); // Persist cookie to session
+        } elseif ($sessionLocale && in_array($sessionLocale, ['en', 'ar'])) {
+            app()->setLocale($sessionLocale);
+        } elseif (in_array($locale, ['en', 'ar'])) {
+            app()->setLocale($locale);
+            session(['locale' => $locale]); // Persist URL to session
+        } else {
+            // Fallback to default
+            app()->setLocale('en');
+            session(['locale' => 'en']); // Persist default to session
+        }
+        
         // Handle file upload errors gracefully
         \Illuminate\Support\Facades\Event::listen(
             \Illuminate\Foundation\Events\ExceptionReported::class,

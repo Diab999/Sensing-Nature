@@ -1,5 +1,7 @@
 @echo off
 chcp 65001 >nul
+set "NO_PAUSE_FLAG=0"
+if "%~1"=="--no-pause" set "NO_PAUSE_FLAG=1"
 echo 🚀 Preparing Laravel project for InMotion Hosting deployment...
 
 REM Check if we're in the right directory
@@ -21,9 +23,11 @@ if exist "%DEPLOY_DIR%" (
 echo 📦 Creating deployment directory...
 mkdir "%DEPLOY_DIR%"
 
-REM Copy project files (excluding development files)
+REM Copy project files (excluding development files) using robocopy (avoids cyclic copy)
 echo 📋 Copying project files...
-xcopy /E /I /Y /EXCLUDE:deployment-exclude.txt . "%DEPLOY_DIR%"
+robocopy . "%DEPLOY_DIR%" /E ^
+  /XD "%DEPLOY_DIR%" .git node_modules vendor storage\logs storage\framework\cache storage\framework\sessions storage\framework\views storage\app\public bootstrap\cache .github .vscode .idea ^
+  /XF .env .env.local .env.development composer.lock package-lock.json yarn.lock vite.config.js webpack.mix.js tailwind.config.js postcss.config.js .eslintrc.js .prettierrc phpunit.xml README.md INMOTION_DEPLOYMENT.md PRODUCTION_DEPLOYMENT.md deploy-to-inmotion.sh deploy-to-inmotion.bat vendor.zip *.log *.sql *.sqlite *.db >nul
 
 REM Create necessary directories
 echo 📁 Creating necessary directories...
@@ -229,51 +233,6 @@ echo echo Post-deployment tasks completed!
 echo pause
 ) > "%DEPLOY_DIR%\post-deploy.bat"
 
-REM Create exclusion file for xcopy
-echo Creating exclusion file for xcopy...
-(
-echo .git
-echo node_modules
-echo vendor
-echo storage\logs\*
-echo storage\framework\cache\*
-echo storage\framework\sessions\*
-echo storage\framework\views\*
-echo storage\app\public\*
-echo bootstrap\cache\*
-echo .env
-echo .env.local
-echo .env.development
-echo deployment-ready
-echo deploy-to-inmotion.sh
-echo deploy-to-inmotion.bat
-echo INMOTION_DEPLOYMENT.md
-echo PRODUCTION_DEPLOYMENT.md
-echo README.md
-echo tests
-echo .gitignore
-echo .gitattributes
-echo composer.lock
-echo package-lock.json
-echo yarn.lock
-echo vite.config.js
-echo webpack.mix.js
-echo tailwind.config.js
-echo postcss.config.js
-echo .eslintrc.js
-echo .prettierrc
-echo phpunit.xml
-echo .editorconfig
-echo .styleci.yml
-echo .github
-echo .vscode
-echo .idea
-echo *.log
-echo *.sql
-echo *.sqlite
-echo *.db
-) > "deployment-exclude.txt"
-
 REM Show summary
 echo.
 echo ✅ Deployment preparation completed!
@@ -292,4 +251,4 @@ echo    - DEPLOYMENT_INSTRUCTIONS.txt (in deployment folder)
 echo.
 echo 🚀 Happy deploying!
 echo.
-pause
+if "%NO_PAUSE_FLAG%"=="0" pause

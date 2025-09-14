@@ -7,6 +7,9 @@ use App\Models\Service;
 use App\Models\TeamMember;
 use App\Models\Portfolio;
 use App\Models\ContactInfo;
+use App\Models\Training;
+use App\Models\HeroSection;
+use App\Models\AboutSection;
 use App\Traits\HasLocaleHandling;
 use Illuminate\Http\Request;
 
@@ -23,9 +26,12 @@ class HomeController extends Controller
         
         $portfolios = Portfolio::latest()->take(6)->get();
         $services = Service::all();
-        $teamMembers = TeamMember::all();
+        $trainings = Training::ordered()->get();
+        $teamMembers = TeamMember::with('roleRelation')->get();
         $contactInfos = ContactInfo::active()->ordered()->get();
+        $heroSection = HeroSection::getActive();
+        $aboutSection = AboutSection::active()->first();
         
-        return view('index', compact('projects', 'portfolios', 'services', 'teamMembers', 'contactInfos'));
+        return view('index', compact('projects', 'portfolios', 'services', 'trainings', 'teamMembers', 'contactInfos', 'heroSection', 'aboutSection'));
     }
 } 

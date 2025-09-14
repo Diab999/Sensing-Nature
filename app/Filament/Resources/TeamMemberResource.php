@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TeamMemberResource\Pages;
 use App\Filament\Resources\TeamMemberResource\RelationManagers;
 use App\Models\TeamMember;
+use App\Models\Role;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -17,27 +18,40 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Select;
+
 
 class TeamMemberResource extends Resource
 {
     protected static ?string $model = TeamMember::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+    
+    protected static ?string $navigationGroup = 'Team Management';
+    
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Section::make('Role Selection')
+                    ->schema([
+                        Select::make('role_id')
+                            ->label('Role')
+                            ->options(Role::active()->ordered()->get()->pluck('title_en', 'id'))
+                            ->searchable()
+                            ->preload()
+                            ->required()
+                            ->helperText('Select a role for this team member'),
+                    ]),
+                    
                 Tabs::make('Team Member Content')
                     ->tabs([
                         Tabs\Tab::make('English')
                             ->schema([
                                 TextInput::make('name.en')
                                     ->label('Name (English)')
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('role.en')
-                                    ->label('Role (English)')
                                     ->required()
                                     ->maxLength(255),
                                 Textarea::make('bio.en')
@@ -50,10 +64,6 @@ class TeamMemberResource extends Resource
                             ->schema([
                                 TextInput::make('name.ar')
                                     ->label('الاسم (العربية)')
-                                    ->required()
-                                    ->maxLength(255),
-                                TextInput::make('role.ar')
-                                    ->label('الدور (العربية)')
                                     ->required()
                                     ->maxLength(255),
                                 Textarea::make('bio.ar')
@@ -69,6 +79,11 @@ class TeamMemberResource extends Resource
                         FileUpload::make('image')
                             ->disk('public')
                             ->image()
+                            ->previewable()
+                            ->openable()
+                            ->downloadable()
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('1:1')
                             ->maxSize(2048)
                             ->directory('team-members/images')
                             ->visibility('public'),
@@ -88,10 +103,12 @@ class TeamMemberResource extends Resource
                     ->label('Name')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('role')
+                Tables\Columns\TextColumn::make('roleRelation.title_en')
                     ->label('Role')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->badge()
+                    ->color('success'),
                 Tables\Columns\TextColumn::make('bio')
                     ->label('Bio')
                     ->limit(40),
@@ -102,14 +119,7 @@ class TeamMemberResource extends Resource
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
-                Tables\Filters\SelectFilter::make('role')
-                    ->options(function () {
-                        return \App\Models\TeamMember::distinct()
-                            ->pluck('role')
-                            ->mapWithKeys(fn($role) => [$role => $role])
-                            ->toArray();
-                    })
-                    ->searchable(),
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

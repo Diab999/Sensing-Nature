@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         
         $this->call([
             ContactInfoSeeder::class,
+            TrainingSeeder::class,
         ]);
     }
 }

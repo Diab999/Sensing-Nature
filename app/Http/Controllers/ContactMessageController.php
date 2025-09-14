@@ -2,10 +2,22 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
+use App\Models\ContactInfo;
 use Illuminate\Http\Request;
 
 class ContactMessageController extends Controller
 {
+    public function index()
+    {
+        // Ensure locale is set from URL
+        $locale = request()->segment(1);
+        if (in_array($locale, ['en', 'ar'])) {
+            app()->setLocale($locale);
+        }
+        
+        $contactInfos = ContactInfo::all();
+        return view('contact.index', compact('contactInfos'));
+    }
     public function store(Request $request)
     {
         $data = $request->validate([

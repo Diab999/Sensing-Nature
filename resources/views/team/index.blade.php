@@ -1,18 +1,43 @@
 @extends('layouts.app')
 
+@section('title', __('messages.our_team', [], 'en'))
+
 @section('content')
-<section class="page-section bg-light" id="team" style="padding-top: 2rem; padding-bottom: 2rem;">
+<section class="page-section bg-light" id="team" style="padding-top: 2rem; padding-bottom: 2rem;" data-aos="zoom-out-down">
     <div class="container px-4 px-lg-5">
-        <div class="text-center">
+        <div class="text-center" data-aos="zoom-out-down" data-aos-delay="100">
             <h2 class="text-center mt-0">{{ __('messages.team') }}</h2>
             <hr class="divider" />
             <p class="text-muted mb-5">{{ __('messages.meet_the_team') }}</p>
         </div>
         
-        <div class="row justify-content-center g-4" lang="{{ app()->getLocale() }}">
+        <!-- Filter Buttons -->
+        <div class="row justify-content-center mb-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-lg-8">
+                <div class="text-center mb-3">
+                    <p class="text-muted mb-3">{{ __('messages.filter_by_role') }}</p>
+                </div>
+                <div class="filter-buttons-container d-flex flex-wrap justify-content-center gap-2">
+                    <button class="filter-btn {{ $roleFilter === 'all' ? 'active' : '' }}" 
+                            data-filter="all" 
+                            onclick="filterTeamMembers('all')">
+                        {{ __('messages.show_all') }}
+                    </button>
+                    @foreach($roles as $role)
+                        <button class="filter-btn {{ $roleFilter == $role->id ? 'active' : '' }}" 
+                                data-filter="{{ $role->id }}" 
+                                onclick="filterTeamMembers('{{ $role->id }}')">
+                            {{ $role->title }}
+                        </button>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center g-4" lang="{{ app()->getLocale() }}" id="teamGrid">
             @if($teamMembers->count() > 0)
                 @foreach($teamMembers as $member)
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-out-down" data-aos-delay="{{ ($loop->index % 4) * 100 }}">
                         <div class="team-member-card" lang="{{ app()->getLocale() }}">
                             <div class="member-image-container">
                                 @if($member->image)
@@ -27,13 +52,8 @@
                             </div>
                             <div class="member-info">
                                 <h5 class="member-role">
-                                    @if(app()->getLocale() === 'ar')
-                                        {!! str_replace(['(Full Stack)', '(Data Science)', '(Cybersecurity)', '(Agile)'], 
-                                            ['<span class="english-term">(Full Stack)</span>', 
-                                             '<span class="english-term">(Data Science)</span>', 
-                                             '<span class="english-term">(Cybersecurity)</span>', 
-                                             '<span class="english-term">(Agile)</span>'], 
-                                            $member->getTranslation('role', app()->getLocale())) !!}
+                                    @if($member->role_id && $member->roleRelation)
+                                        {{ $member->roleRelation->title }}
                                     @else
                                         {{ $member->getTranslation('role', app()->getLocale()) }}
                                     @endif
@@ -75,10 +95,27 @@
         <div class="mt-4 d-flex justify-content-center">
             {{ $teamMembers->links() }}
         </div>
+        
+        <!-- Back to Home Button -->
+        <div class="text-center mt-5">
+            <a href="/{{ app()->getLocale() }}" class="btn btn-primary btn-lg">
+                <i class="bi bi-house-fill me-2"></i>{{ __('messages.back_to_home') }}
+            </a>
+        </div>
     </div>
 </section>
 
 <style>
+/* Ensure navbar is fixed to top on team page */
+.navbar {
+    z-index: 1050 !important;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Team page specific styles - ensure they don't interfere with navbar */
 .team-member-card {
     width: 100%;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -90,6 +127,7 @@
     position: relative;
     overflow: hidden;
     height: 100%;
+    z-index: 1; /* Lower z-index than navbar */
 }
 
 .team-member-card::before {
@@ -99,13 +137,13 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #f4623a, #c34e2e);
+    background: linear-gradient(90deg, #6EB744, #5A8C43);
 }
 
 .team-member-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(244, 98, 58, 0.2);
-    border-color: rgba(244, 98, 58, 0.3);
+    box-shadow: 0 15px 35px rgba(90, 140, 67, 0.2);
+    border-color: rgba(90, 140, 67, 0.3);
 }
 
 /* RTL Card Flow Implementation */
@@ -201,7 +239,7 @@
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid #fff;
-    box-shadow: 0 4px 15px rgba(244, 98, 58, 0.2);
+    box-shadow: 0 4px 15px rgba(110, 183, 68, 0.2);
     transition: transform 0.3s ease;
     display: block;
     margin: 0 auto;
@@ -215,12 +253,12 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background: linear-gradient(135deg, #f4623a, #c34e2e);
+    background: linear-gradient(135deg, #6EB744, #5A8C43);
     display: flex;
     align-items: center;
     justify-content: center;
     border: 4px solid #fff;
-    box-shadow: 0 4px 15px rgba(244, 98, 58, 0.2);
+    box-shadow: 0 4px 15px rgba(110, 183, 68, 0.2);
 }
 
 .member-placeholder i {
@@ -332,5 +370,101 @@
     font-weight: 500;
     border-radius: 0.5rem;
 }
+
+/* Ensure navbar dropdown works properly */
+.navbar .dropdown-menu {
+    z-index: 1060 !important;
+    position: absolute !important;
+}
+
+.navbar .dropdown-toggle {
+    z-index: 1055 !important;
+}
+
+/* Filter Buttons Styling */
+.filter-buttons-container {
+    gap: 0.75rem;
+}
+
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #6EB744;
+    background: white;
+    color: #6EB744;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    min-width: 120px;
+    text-align: center;
+}
+
+.filter-btn:hover {
+    background: #6EB744;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(110, 183, 68, 0.3);
+}
+
+.filter-btn.active {
+    background: #6EB744;
+    color: white;
+    box-shadow: 0 4px 12px rgba(110, 183, 68, 0.3);
+}
+
+.filter-btn.active:hover {
+    background: #5A8C43;
+    transform: translateY(-2px);
+}
+
+/* Responsive filter buttons */
+@media (max-width: 768px) {
+    .filter-buttons-container {
+        gap: 0.5rem;
+    }
+    
+    .filter-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.85rem;
+        min-width: 90px;
+    }
+}
 </style>
+
+<script>
+// Team filtering functionality
+document.addEventListener('DOMContentLoaded', function() {
+    window.filterTeamMembers = function(roleId) {
+        // Update URL without page reload
+        const url = new URL(window.location);
+        if (roleId === 'all') {
+            url.searchParams.delete('role');
+        } else {
+            url.searchParams.set('role', roleId);
+        }
+        
+        // Update browser history
+        window.history.pushState({}, '', url);
+        
+        // Redirect to the filtered URL
+        window.location.href = url.toString();
+    };
+
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', function(event) {
+        window.location.href = window.location.href;
+    });
+});
+</script>
 @endsection 

@@ -82,9 +82,11 @@ class ServiceResource extends Resource
                         FileUpload::make('icon')
                             ->disk('public')
                             ->image()
+                            ->previewable()
                             ->maxSize(2048)
                             ->directory('services/icons')
-                            ->visibility('public'),
+                            ->visibility('public')
+                            ->storeFileNamesIn('original_filename'),
                     ])
                     ->columns(2),
             ]);

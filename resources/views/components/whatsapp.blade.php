@@ -57,9 +57,9 @@
 }
 
 .wh-ap-btn:hover {
-    background-color: #128C7E;
+    background-color: #6EB744;
     transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+    box-shadow: 0 6px 20px rgba(110, 183, 68, 0.4);
 }
 
 .wh-ap-btn svg {
@@ -116,7 +116,7 @@
 }
 
 /* RTL support */
-[dir="rtl"] .wh-ap-btn::before {
+[dir="rtl"] .wh-ap-btn:: {
     right: auto;
     left: 70px;
 }

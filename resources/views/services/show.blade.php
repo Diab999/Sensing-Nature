@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', $service->getTranslation('name', app()->getLocale()))
+@section('title', $service->name)
 
 @section('content')
-<div class="container py-5" style="max-width: 900px;" lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}">
-    <h1 class="mb-4" style="font-size:2.5rem;font-weight:600;color:#f4623a;text-align:center;">{{ $service->getTranslation('name', app()->getLocale()) }}</h1>
+<div class="container py-5" style="max-width: 900px;" lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }}" data-aos="fade-up">
+    <h1 class="mb-4" style="font-size:2.5rem;font-weight:600;color:#6EB744;text-align:center;" data-aos="fade-up" data-aos-delay="100">{{ $service->getTranslation('name', app()->getLocale()) }}</h1>
     
-    <div style="font-size:1.2rem;line-height:1.8;color:#444;text-align:{{ app()->getLocale() == 'ar' ? 'right' : 'left' }};max-width:100%;direction:{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }};">
+    <div style="font-size:1.2rem;line-height:1.8;color:#444;text-align:{{ app()->getLocale() == 'ar' ? 'right' : 'left' }};max-width:100%;direction:{{ app()->getLocale() == 'ar' ? 'rtl' : 'ltr' }};" data-aos="fade-up" data-aos-delay="150">
         {!! $service->getTranslation('description', app()->getLocale()) !!}
     </div>
     
-    <div class="text-center mt-5">
+    <div class="text-center mt-5" data-aos="zoom-in" data-aos-delay="200">
         <a href="/{{ app()->getLocale() }}#services" class="btn btn-primary btn-lg">{{ __('messages.back_to_services') }}</a>
     </div>
 </div>

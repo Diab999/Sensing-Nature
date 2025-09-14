@@ -1,17 +1,19 @@
 @extends('layouts.app')
 
+@section('title', __('messages.projects', [], 'en'))
+
 @section('content')
-<section class="page-section bg-light" id="projects">
+<section class="page-section bg-light" id="projects" data-aos="zoom-in-right">
     <div class="container px-4 px-lg-5">
-        <div class="text-center mb-5">
+        <div class="text-center mb-5" data-aos="zoom-in-right" data-aos-delay="100">
             <h2 class="mb-2" style="font-size:2.5rem;font-weight:500;">{{ __('messages.our_projects') }}</h2>
-            <div style="width:60px;height:4px;background:#f4623a;margin:0.5rem auto 1.5rem auto;border-radius:2px;"></div>
+            <div style="width:60px;height:4px;background:#6EB744;margin:0.5rem auto 1.5rem auto;border-radius:2px;"></div>
             <p class="text-muted" style="font-size:1.15rem;">{{ __('messages.explore_projects') }}</p>
         </div>
         <div class="row justify-content-center g-4">
             @if($projects->count() > 0)
                 @foreach($projects as $project)
-                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                    <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in-right" data-aos-delay="{{ ($loop->index % 4) * 100 }}">
                         <div class="card shadow border-0 h-100 project-card-custom">
                             @if($project->image)
                                 <img src="{{ asset('storage/' . $project->image) }}" class="card-img-top rounded-top project-image" alt="{{ $project->name }}">
@@ -50,6 +52,13 @@
         <div class="mt-4 d-flex justify-content-center">
             {{ $projects->links() }}
         </div>
+        
+        <!-- Back to Home Button -->
+        <div class="text-center mt-5">
+            <a href="/{{ app()->getLocale() }}" class="btn btn-primary btn-lg">
+                <i class="bi bi-house-fill me-2"></i>{{ __('messages.back_to_home') }}
+            </a>
+        </div>
     </div>
 </section>
 <style>
@@ -57,7 +66,7 @@
 .project-image { width: 100%; height: 220px; object-fit: cover; }
 .project-card-body { padding: 1.5rem 1.25rem 1.25rem 1.25rem; }
 .project-title { font-size: 1.25rem; font-weight: 600; color: #1f2937; }
-.project-date { color: #f4623a; }
+.project-date { color: #6EB744; }
 .project-desc-truncate {
     display: -webkit-box !important;
     -webkit-line-clamp: 4 !important;
@@ -68,7 +77,7 @@
     line-height: 1.55 !important;
 }
 .btn-readmore {
-    background: #f4623a;
+    background: #6EB744;
     color: #fff;
     border: none;
     border-radius: 0.5rem;
@@ -77,13 +86,13 @@
     width: 140px;
     text-align: center;
     transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
-    box-shadow: 0 2px 8px rgba(244,98,58,0.08);
+    box-shadow: 0 2px 8px rgba(110,183,68,0.08);
 }
 .btn-readmore:hover {
-    background: #c34e2e;
+    background: #5A8C43;
     color: #fff;
     transform: translateY(-2px) scale(1.04);
-    box-shadow: 0 4px 16px rgba(244,98,58,0.15);
+    box-shadow: 0 4px 16px rgba(110,183,68,0.15);
 }
 
 /* Empty state styling */

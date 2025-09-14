@@ -26,6 +26,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
+            ->registration()
             ->login()
             ->colors([
                 'primary' => Color::Amber,
@@ -60,9 +61,11 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(asset('favicon.ico'))
             ->navigationGroups([
                 'Content Management',
-                'User Management',
+                'Team Management',
+                'User Management', 
                 'Settings',
                 'Administration',
+                'Website',
             ]);
     }
 }

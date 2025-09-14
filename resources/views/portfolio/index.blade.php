@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', __('messages.portfolio', [], 'en'))
+
 @section('content')
 <section class="page-section bg-light" id="portfolio" style="padding-top: 2rem; padding-bottom: 2rem;">
     <div class="container px-4 px-lg-5">
