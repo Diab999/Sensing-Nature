@@ -100,7 +100,7 @@
         
         /* Home navbar hover background (only in mobile menu) */
         #mainNav .navbar-nav .nav-link { transition: background-color .25s ease, color .25s ease; border-radius: .5rem; }
-        @media (max-width: 1399px) {
+        @media (max-width: 1199px) {
             #mainNav .navbar-nav .nav-link { margin: .125rem .5rem; padding: .75rem 1rem; }
             #mainNav .collapse.show .navbar-nav .nav-link:hover {
                 color: #6EB744 !important;
@@ -133,7 +133,7 @@
         }
         
         #mainNav .dropdown-item { transition: color .25s ease; border-radius: .5rem; }
-        @media (max-width: 1399px) {
+        @media (max-width: 1199px) {
             #mainNav .collapse.show .dropdown-item:hover {
                 color: #6EB744 !important;
                 background-color: transparent !important;
@@ -156,7 +156,7 @@
             padding: 0;
         }
         /* Keep navbar logo fixed size on all screens */
-        @media (max-width: 1399px) { .brand-logo { height: 90px; width: 320px; } }
+        @media (max-width: 1199px) { .brand-logo { height: 90px; width: 320px; } }
         @media (max-width: 767px) { .brand-logo { height: 90px; width: 320px; } }
         @media (max-width: 575px) { .brand-logo { height: 90px; width: 220px; } }
         
@@ -719,7 +719,7 @@
         <div class="scroll-progress-track"></div>
         <div class="scroll-progress-bar" id="scrollProgress"></div>
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-xxl navbar-light fixed-top py-3" id="mainNav">
+        <nav class="navbar navbar-expand-xl navbar-light fixed-top py-3" id="mainNav">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand d-flex align-items-center" href="#page-top">
                     @php

@@ -24,7 +24,7 @@
             padding: 0;
         }
         /* Keep navbar logo fixed size on all screens */
-        @media (max-width: 1399px) { .brand-logo { height: 90px; width: 320px; } }
+        @media (max-width: 1199px) { .brand-logo { height: 90px; width: 320px; } }
         @media (max-width: 767px) { .brand-logo { height: 90px; width: 320px; } }
         @media (max-width: 575px) { .brand-logo { height: 90px; width: 220px; } }
        
@@ -121,7 +121,7 @@
         .page-section {
             padding: 4rem 0 3rem 0;
         }
-        @media (max-width: 1399px) {
+        @media (max-width: 1199px) {
             .page-section {
                 padding: 2.5rem 0 2rem 0;
             }
@@ -130,7 +130,7 @@
             }
         }
         /* Enhanced mobile navbar styles */
-        @media (max-width: 1399px) {
+        @media (max-width: 1199px) {
             .navbar {
                 padding: 0.75rem 0;
             }
@@ -250,7 +250,7 @@
     <div class="scroll-progress-bar" id="scrollProgress"></div>
 
 
-    <nav class="navbar navbar-expand-xxl navbar-light bg-light fixed-top py-3">
+    <nav class="navbar navbar-expand-xl navbar-light bg-light fixed-top py-3">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand d-flex align-items-center" href="/{{ app()->getLocale() }}">
                 @php
@@ -307,7 +307,7 @@
         }
         
         /* Responsive main content padding */
-        @media (max-width: 1399px) {
+        @media (max-width: 1199px) {
             main {
                 padding-top: 70px;
             }
